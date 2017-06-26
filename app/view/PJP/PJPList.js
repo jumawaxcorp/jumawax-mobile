@@ -4,10 +4,11 @@ Ext.define('Jumawax.view.PJP.PJPList', {
 
 	config: {
 		fullscreen: true,
-		useComponents: true,
+        store: 'PJPStore',
 
-		store: 'PJPStore',
+		useComponents: true,
 		defaultType: 'PJPListItem',
+
         listeners: [
             {
                 element: 'element',
@@ -31,7 +32,9 @@ Ext.define('Jumawax.view.PJP.PJPListItem', {
     requires: [
         'Ext.Img',
         'Ext.Button',
-        'Ext.slider.Slider'
+        'Ext.slider.Slider',
+        'Ext.Map',
+        'Jumawax.view.PJP.TestMap'
     ],
 
     config: {
@@ -61,21 +64,20 @@ Ext.define('Jumawax.view.PJP.PJPListItem', {
         image: true,
         title: {
             cls: 'x-name',
-            flex: 4
+            flex: 10
         },
         planId: {
             cls: 'x-name',
-            flex: 2
         },
         submitDate: {
             cls: 'x-name',
-            flex: 4
         },
         // slider: {
         //     flex: 2
         // },
         nameButton: {
         		// text: 'Button'
+            flex: 2,
             iconCls: 'info',
             iconMask: true
         },
@@ -233,11 +235,76 @@ Ext.define('Jumawax.view.PJP.PJPListItem', {
     },
 
     onNameButtonTap: function(button, e) {
+        e.stopEvent();
+
         var record = this.getRecord();
 
-        Ext.Msg.alert(
-            record.get('title'), // the title of the alert
-            "The age of this person is: " + record.get('title') // the message of the alert
-        );
+        // Ext.Msg.alert(
+        //     record.get('title'), // the title of the alert
+        //     "The age of this person is: " + record.get('title') // the message of the alert
+        // );
+
+        if(!this.overlay){
+            this.overlay = Ext.Viewport.add({
+                xtype: 'panel',
+                modal: true,
+                scrollable: true,
+                centered: true,
+                // floating: true,
+                hideOnMaskTap: true,
+                layout: 'vbox',
+
+                showAnimation: {
+                    type: 'popIn',
+                    duration: 250,
+                    easing: 'ease-out'
+                },
+                hideAnimation: {
+                    type: 'popOut',
+                    duration: 250,
+                    easing: 'ease-out'                    
+                },
+
+                width: Ext.filterPlatform('ie10') ? '100%' : (Ext.os.deviceType == 'Phone') ? 300 : 400,
+                height: Ext.filterPlatform('ie10') ? '30%' : (Ext.os.deviceType == 'Phone') ? 450 : 400,
+
+                // styleHtmlContent: true,
+                // html: '<p>asdkjasd askdjbasd asd ansb dansd ansdb </p>',
+
+                items: [
+                  {
+                    xtype: 'toolbar',
+                    docked: 'top',
+                    title: 'overlay'
+                  },
+                  {
+                    xtype: 'testMap',
+                    flex: 1
+                  },
+                  {
+                    xtype: 'panel',
+                    flex: 1,
+                    styleHtmlContent: true,
+                    html: [
+                        '<div>',
+                        '<p>asdkjasd askdjbasd asd ansb dansd ansdb </p>',
+                        '<p>asdkjasd askdjbasd asd ansb dansd ansdb </p>',
+                        '</div>'
+                    ].join('')
+                  }
+                  // {
+                  //   xtype: 'map',
+                  //   flex: 1,
+                  //   mapOptions: {
+                  //       mapTypeId: google.maps.MapTypeId.ROADMAP,
+                  //       zoom: 10
+                  //   },
+                  //   useCurrentLocation: true
+                  // }
+                ]
+            });
+        };
+
+        this.overlay.show();
     }
 });

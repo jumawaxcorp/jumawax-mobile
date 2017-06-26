@@ -4,9 +4,7 @@ Ext.define('Jumawax.view.PJP.TestMap', {
     xtype: 'testMap',
  
     config: {
-        layout: {
-            type: 'fit'
-        },
+        layout: 'fit',
         items: [
             {
                 xtype: 'map',
@@ -41,7 +39,7 @@ Ext.define('Jumawax.view.PJP.TestMap', {
         
         var geo = Ext.create('Ext.util.Geolocation', {
             autoUpdate: true,
-            frequency: '1000',
+            frequency: '10000',
 
             listeners: {
                 locationupdate: function (geo) {        
