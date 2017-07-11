@@ -17,7 +17,6 @@ Ext.define('Jumawax.view.PJP.Card', {
         autoDestroy: false,
 
         navigationBar: {
-            // ui: 'sencha',
             items: [
                 { 
                     xtype: 'label', 

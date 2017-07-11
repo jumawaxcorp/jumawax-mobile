@@ -29,9 +29,9 @@ Ext.define('Jumawax.view.auth.Login', {
                 items: [
                     {
                         xtype: 'emailfield',
-                        placeHolder: 'Isi Bret',
+                        placeHolder: 'Isi R.Kenedy',
                         itemId: 'username',
-                        value: 'Bret',
+                        value: 'R.Kennedy',
                         name: 'username',
                         required: true
                     },

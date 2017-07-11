@@ -32,7 +32,9 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLResultSet": "touch/src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLResultSetRowList": "touch/src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLTransaction": "touch/src/device/sqlite/Sencha.js",
-  "Jumawax": "app"
+  "Jumawax": "app",
+  "Jumawax.view.PJP.PJPListItem": "app/view/PJP/PJPListBackup.js",
+  "Jumawax.view.StoreListItem": "app/view/PJP/StoreList.js"
 });
 
 Ext.ClassManager.addNameAlternateMappings({
@@ -669,8 +671,25 @@ Ext.ClassManager.addNameAlternateMappings({
     "Ext.viewport.WP"
   ],
   "Jumawax.controller.AuthCtrl": [],
+  "Jumawax.controller.PJPCtrl": [],
+  "Jumawax.model.PJPModel": [],
+  "Jumawax.store.CatalogueStore": [],
   "Jumawax.store.LoginStore": [],
+  "Jumawax.store.PJPStore": [],
+  "Jumawax.store.SKUStore": [],
+  "Jumawax.store.StoreStore": [],
+  "Jumawax.store.TestStore": [],
   "Jumawax.view.Main": [],
+  "Jumawax.view.PJP.Card": [],
+  "Jumawax.view.PJP.PJPForm": [],
+  "Jumawax.view.PJP.PJPList": [],
+  "Jumawax.view.PJP.PJPListBackup": [],
+  "Jumawax.view.PJP.PJPListItem": [],
+  "Jumawax.view.PJP.ProductList": [],
+  "Jumawax.view.PJP.SKUList": [],
+  "Jumawax.view.PJP.StoreList": [],
+  "Jumawax.view.PJP.TestMap": [],
+  "Jumawax.view.StoreListItem": [],
   "Jumawax.view.auth.Login": []
 });
 
@@ -1401,12 +1420,49 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
   "Jumawax.controller.AuthCtrl": [],
+  "Jumawax.controller.PJPCtrl": [],
+  "Jumawax.model.PJPModel": [],
+  "Jumawax.store.CatalogueStore": [],
   "Jumawax.store.LoginStore": [],
+  "Jumawax.store.PJPStore": [],
+  "Jumawax.store.SKUStore": [],
+  "Jumawax.store.StoreStore": [],
+  "Jumawax.store.TestStore": [],
   "Jumawax.view.Main": [
     "widget.main"
   ],
+  "Jumawax.view.PJP.Card": [
+    "widget.PJPContainer"
+  ],
+  "Jumawax.view.PJP.PJPForm": [
+    "widget.PJPForm"
+  ],
+  "Jumawax.view.PJP.PJPList": [
+    "widget.PJPList"
+  ],
+  "Jumawax.view.PJP.PJPListBackup": [
+    "widget.PJPListBackup"
+  ],
+  "Jumawax.view.PJP.PJPListItem": [
+    "widget.PJPListItem"
+  ],
+  "Jumawax.view.PJP.ProductList": [
+    "widget.productList"
+  ],
+  "Jumawax.view.PJP.SKUList": [
+    "widget.SKUList"
+  ],
+  "Jumawax.view.PJP.StoreList": [
+    "widget.storeList"
+  ],
+  "Jumawax.view.PJP.TestMap": [
+    "widget.testMap"
+  ],
+  "Jumawax.view.StoreListItem": [
+    "widget.storeListItem"
+  ],
   "Jumawax.view.auth.Login": [
-    "widget.login"
+    "widget.loginPage"
   ]
 });
 

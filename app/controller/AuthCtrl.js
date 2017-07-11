@@ -9,6 +9,13 @@ Ext.define('Jumawax.controller.AuthCtrl', {
       labelCt: 'loginPage [itemId=signInFailedLabel]',
       keepUserCt: 'loginPage [itemId=keepUser]',
       loginPage: 'loginPage',
+      PJPList: 'PJPList',
+      PJPContainer: 'PJPContainer',
+      PJPCardList: {
+        autoCreate: 'true',
+        selector: '#PJPs',
+        xtype: 'PJPContainer'
+      },
       main: 'main'		
   	},
   	control: {
@@ -21,6 +28,9 @@ Ext.define('Jumawax.controller.AuthCtrl', {
   slideLeftTransition: { type: 'slide', direction: 'left' },
 
 	onLoginButtonTap: function(){
+      var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
+      myMask.show();
+
       var usernameField = this.getUsernameCt(),
           passwordField = this.getPasswordCt();
           label = this.getLabelCt();
@@ -28,9 +38,6 @@ Ext.define('Jumawax.controller.AuthCtrl', {
       var username = usernameField.getValue(),
           password = passwordField.getValue();
 
-      console.log(username + password);
-      // Using a delayed task in order to give the hide animation above
-      // time to finish before executing the next steps.
       var task = Ext.create('Ext.util.DelayedTask', function () {
           label.setHtml('');
           // me.fireEvent('signInCommand', me, username, password);
@@ -39,20 +46,30 @@ Ext.define('Jumawax.controller.AuthCtrl', {
       });
       task.delay(500);
 
-      var test = Ext.create('Jumawax.store.LoginStore');
-      var nah = test.load(
-	      {
+
+      var test = Ext.create('Jumawax.store.PJPStore');
+      var nah = test.load({
 	      	params: {
 	      		username: username
 	      	},
 	      	scope   : this,
 			    callback: function(records, operation, success) {
-			        //the operation object contains all of the details of the load operation
-			        if(records[0].data.username == username){
-					      Ext.Viewport.setActiveItem(this.getMain(), this.slideLeftTransition);
+			        if(records[0].data.agent == username){
+                var PJPStore = Ext.create('Jumawax.store.PJPStore');
+                var nyoba = PJPStore.load({
+                  scope: this,
+                  params: {
+                    username: records[0].data.agent
+                  },
+                  callback: function(hasil, operation, success) {                    
+                    this.getPJPList().setStore(nyoba);
+                    myMask.hide();
+                  }
+                });
+
+                Ext.Viewport.setActiveItem(this.getMain(), this.slideLeftTransition);
 			        }
 			    }
-	      }
-    	);
+	    });
 	}
 });

@@ -3,13 +3,14 @@ Ext.define('Jumawax.view.PJP.ProductList', {
 	xtype: 'productList',
 
 	config: {
-		title: 'Product',
-		itemCls: 'Product',
+		title: 'Catalogue',
+		itemCls: 'catalogue',
+    storeCode: null,
 
-	    itemTpl: [
-	    	'<div>',
-	    	'<h1>{title}</h1>',
-	    	'</div>'
-	    ].join('')
+    itemTpl: [
+    	'<div>',
+    	'<h1>{catalogueName}</h1>',
+    	'</div>'
+    ].join('')
 	}
 });

@@ -33,10 +33,16 @@ Ext.application({
         'AuthCtrl',
         'PJPCtrl'
     ],
+    models: [
+        'PJPModel'
+    ],
     stores: [
         'LoginStore',
         'PJPStore',
-        'TestStore'
+        'TestStore',
+        'StoreStore',
+        'CatalogueStore',
+        'SKUStore'
     ],
 
     icon: {

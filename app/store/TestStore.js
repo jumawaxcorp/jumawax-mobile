@@ -3,14 +3,23 @@ Ext.define('Jumawax.store.TestStore', {
     requires: ['Ext.data.proxy.JsonP'],
 
     config: {
-        autoLoad: true,
+        // autoLoad: true,
         // fields: [ 'role', 'agentname', 'token', 'username' ],
-        fields: [ 'userId', 'id', 'title', 'body' ],
+        fields: [ 'postId', 'id', 'name', 'email', 'body' ],
 
         proxy: {
             type: 'jsonp',
-            url: 'http://jsonplaceholder.typicode.com/posts',
+            url: 'http://jsonplaceholder.typicode.com/comments',
             callbackKey: 'callback'
+        },
+        listeners : {
+            beforeload: function(store, eOpts){
+              myMask.show();
+            },
+            load : function(store) {
+              myMask.hide();
+              console.log('TestStore data= ' + store.getCount());
+            }
         }
     }
 });

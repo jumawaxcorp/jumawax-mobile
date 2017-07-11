@@ -2,7 +2,7 @@ Ext.define('Jumawax.store.LoginStore', {
     extend: 'Ext.data.Store',
     requires: ['Ext.data.proxy.JsonP'],
     config: {
-        autoLoad: true,
+        // autoLoad: true,
         fields: [ 'id', 'name', 'username', 'email', 'address', 'phone', 'website', 'company' ],
 
         proxy: {
@@ -16,7 +16,7 @@ Ext.define('Jumawax.store.LoginStore', {
             listeners: {
                 load: function(store, records, successful){
                 
-                    console.log("dfsdfdgsdgf");
+                    console.log('LoginStore data= ' + store.getCount());
                 
                 }
             }

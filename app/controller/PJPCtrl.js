@@ -8,7 +8,7 @@ Ext.define('Jumawax.controller.PJPCtrl', {
 			// ShowPJP: 'PJP-show',
             storeList: 'storeList',
             SKUList: 'SKUList',
-            productList: 'productList',
+            catalogueList: 'productList',
             PJPForm: 'PJPForm',
             testMap: 'testMap'
 		},
@@ -27,8 +27,8 @@ Ext.define('Jumawax.controller.PJPCtrl', {
             storeList: {
                 itemtap: 'onStoreSelect'
             },
-            productList: {
-                itemtap: 'onProductSelect'
+            catalogueList: {
+                itemtap: 'onCatalogueSelect'
             }
 		}
 	},
@@ -56,100 +56,143 @@ Ext.define('Jumawax.controller.PJPCtrl', {
         }
     },    
 
-    
-    // onPJPSelect: function(list, index, node, record) {
-
-    //     if (!this.showPJP) {
-    //         this.showPJP = Ext.create('MyApp.view.PJP.Detail');
-    //     }
-
-    //     // Bind the record onto the show contact view
-    //     this.showPJP.setRecord(record);
-    //             console.log(record.get('name'));
-
-    //     // Push the show contact view into the navigation view
-    //     this.getMain().push(this.showPJP);
-    // },
-
     onPJPSelect: function(list, index, node, record) {
+
         if (!this.storeList) {
             this.storeList = Ext.create('Jumawax.view.PJP.StoreList');
         }
 
-        var tot = Ext.getStore('TestStore');
+        var storeAnu = Ext.getStore('StoreStore');
 
-        tot.getProxy().setUrl('http://jsonplaceholder.typicode.com/posts/'+ record.data.id); 
+        // storeAnu.getProxy().setUrl('http://jsonplaceholder.typicode.com/comments/'+ record.data.id); 
 
-        var jing = tot.load();
-        this.getStoreList().setStore(jing);
+        var loadedStore = storeAnu.load({
+            params: {
+                planid: record.data.planId,
+                latitude: -6.2610147,
+                longitude: 107.0581644
+            }
+        });
 
-        // Push the show contact view into the navigation view
-        this.getMain().push(this.getStoreList());
+        this.getStoreList().setStore(loadedStore);
+
+
+        if(index===1) // 1 is the 2nd item in the list
+        {
+            console.log(Ext.getCmp('MyList').getAt(index));
+            Ext.getCmp('MyList').getAt(index).setDisabled(true); //getting the list using id 'MyList', getting the item using index and then setting it as disabled.
+        } else {
+            this.getMain().push(this.getStoreList());            
+        }
+
+
+        // this.getMain().push(this.getStoreList());  
     },
 
     onStoreSelect: function(list, index, node, record) {
-
-        if (!this.SKUList) {
-            this.SKUList = Ext.create('Jumawax.view.PJP.SKUList');
+        if (!this.catalogueList) {
+            this.catalogueList = Ext.create('Jumawax.view.PJP.ProductList');
         }
 
-        var tot = Ext.getStore('PJPStore');
+        var storeAnu = Ext.getStore('CatalogueStore');
 
-        tot.getProxy().setUrl('http://jsonplaceholder.typicode.com/posts/'+ record.data.id); 
+        // storeAnu.getProxy().setUrl('http://jsonplaceholder.typicode.com/posts/'+ record.data.id); 
+        // var loadedStore = storeAnu.load();
 
-        var jing = tot.load();
-        this.getSKUList().setStore(jing);
+        var loadedStore = storeAnu.load();
 
-        // Push the show contact view into the navigation view
-        this.getMain().push(this.getSKUList());
+        this.getCatalogueList().setStore(loadedStore);
+        this.getCatalogueList().setStoreCode("yeah");
+
+        this.getMain().push(this.getCatalogueList());
     },
 
-    onSKUSelect: function(list, index, node, record) {
+    onCatalogueSelect: function(list, index, node, record, e, eOpts) {
+        console.log("sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+        console.log(this.getCatalogueList().getStoreCode());
 
-        if (!this.ProductList) {
-            this.ProductList = Ext.create('Jumawax.view.PJP.ProductList');
+        // if (!this.SKUList) {
+        //     this.SKUList = Ext.create('Jumawax.view.PJP.SKUList');
+        // }
+
+        // var storeAnu = Ext.getStore('SKUStore');
+        // console.log(storeAnu);
+
+        // var loadedStore = storeAnu.load({
+        //     params: {
+        //         storeId: 'ALE14114',
+        //         catalogueId: record.data.catalogueId
+        //     }
+        // });
+        // this.getSKUList().setStore(loadedStore);
+
+        // this.getMain().push(this.getSKUList());
+
+
+
+
+
+        if (!this.PJPForm) {
+            this.PJPForm = Ext.create('Jumawax.view.PJP.PJPForm');
         }
+        // if (!this.testMap) {
+        //     this.testMap = Ext.create('Jumawax.view.PJP.TestMap');
+        // }
 
-        var tot = Ext.getStore('TestStore');
-
-        tot.getProxy().setUrl('http://jsonplaceholder.typicode.com/posts/'+ record.data.id); 
-
-        var jing = tot.load();
-        this.getProductList().setStore(jing);
+        // Bind the record onto the show contact view
+        this.PJPForm.setRecord(record);
 
         // Push the show contact view into the navigation view
-        this.getMain().push(this.getProductList());
+        this.getMain().push(this.PJPForm);
+
     },
 
     onProductSelect: function(list, index, node, record) {
 
-        // if (!this.PJPForm) {
-        //     this.PJPForm = Ext.create('Jumawax.view.PJP.PJPForm');
-        // }
-        if (!this.testMap) {
-            this.testMap = Ext.create('Jumawax.view.PJP.TestMap');
+        if (!this.PJPForm) {
+            this.PJPForm = Ext.create('Jumawax.view.PJP.PJPForm');
         }
+        // if (!this.testMap) {
+        //     this.testMap = Ext.create('Jumawax.view.PJP.TestMap');
+        // }
 
         // Bind the record onto the show contact view
-        this.testMap.setRecord(record);
+        this.PJPForm.setRecord(record);
 
         // Push the show contact view into the navigation view
-        this.getMain().push(this.testMap);
+        this.getMain().push(this.PJPForm);
+    },
+    onProductSelect: function(list, index, node, record) {
+
+        if (!this.PJPForm) {
+            this.PJPForm = Ext.create('Jumawax.view.PJP.PJPForm');
+        }
+        // if (!this.testMap) {
+        //     this.testMap = Ext.create('Jumawax.view.PJP.TestMap');
+        // }
+
+        // Bind the record onto the show contact view
+        this.PJPForm.setRecord(record);
+
+        // Push the show contact view into the navigation view
+        this.getMain().push(this.PJPForm);
     },
 
     populateDashboardData: function() {
-        console.log("sdabdjhd");
-        // var test = Ext.create('Jumawax.store.PJPStore');
-        // var nyoba = test.load();
-        // Ext.util.JSONP.request({
-        //     // url: 'http://jsonplaceholder.typicode.com/posts',
-        //     url: 'http://192.168.0.106:8080/jumawx-web/journeyplan/list/plan',
-        //     params: {
-        //         username: 'R.Kennedy'
-        //     },
-        //     callback: function (success, result) {
-                
-        //     }
-        // });                            
+
+        if (!this.PJPList) {
+            this.PJPList = Ext.create('Jumawax.view.PJP.PJPList');
+        }
+
+        var test = Ext.getStore('PJPStore');
+        var nyoba = test.load({
+            params:{
+                id: 1
+            }
+        });
+
+        this.getPJPList().setStore(nyoba);
+
+        this.getMain().push(this.getPJPList());
     }
 });
